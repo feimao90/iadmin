@@ -1,0 +1,125 @@
+/*header*/
+.fc-w{color:#fff;}
+.admin-login-box {
+	width: 179px;
+	border-bottom:1px solid #000000;
+}
+.layui-layout-admin .layui-main {
+	margin: 0 15px 0 0 ;
+}
+.layui-layout-admin .layui-header{
+	border:none;
+	background-color: #373d41;
+}
+.header{
+	height:52px;
+}
+.header .layui-main .admin-login-box{
+	height:52px;
+	line-height:52px;
+	text-align:center;
+}
+.header .layui-main .admin-login-box:hover{
+	background:#2A2F32;
+
+}
+.header .layui-main .admin-login-box a.logo{
+	position:static;
+	color:#fff;
+}
+.header .layui-nav .layui-nav-item {
+	line-height:52px;
+	margin:0 10px;
+}
+.header .layui-nav .layui-nav-item:hover{
+	background:#2A2F32;
+}
+.header .layui-nav .layui-nav-item a{
+	color:#fff;
+}
+.header .layui-nav .layui-nav-item .layui-nav-child a{
+	color:#666;
+}
+.layui-nav .layui-this:after, .layui-nav-bar{
+	display: none;
+}
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after{
+	height:5px;
+}
+/*side*/
+.layui-layout-admin .layui-side{
+	top:52px;
+	width:180px;
+}
+.layui-side-scroll{
+	width:180px;
+}
+.layui-nav-tree {
+	width: 180px;
+}
+.layui-nav .layui-nav-more {
+	top:24px;
+	right: 0px;
+}
+.layui-nav-tree .layui-nav-more{
+	left: 10px;
+	top: 17px;
+}
+.layui-nav .layui-nav-mored{
+	top: 17px!important;
+}
+.layui-nav-item a cite{
+	padding:0 14px;
+}
+.layui-flow-more a cite, .layui-laypage em, .layui-tree li a cite, a cite{
+	font-size: 12px!important;
+	color:#fff;
+}
+.layui-nav-tree .layui-nav-item{
+	background: #393d49;
+}
+.layui-nav-tree .layui-nav-item a{
+	height:40px;
+	line-height:40px
+}
+.layui-nav-tree .layui-nav-item a:hover{
+	background: #42485B;
+}
+.layui-nav-child{
+	top:53px;
+}
+.layui-nav-tree .layui-nav-item a{
+	color:#888888;
+}
+.layui-nav .layui-nav-mored, .layui-nav-itemed .layui-nav-more{
+	border-color:transparent transparent #f9f9f9;
+	top: 12px;
+}
+.layui-nav-itemed>a, .layui-nav-tree .layui-nav-title a, .layui-nav-tree .layui-nav-title a{	
+	background: #42485B!important
+}
+.layui-nav-tree .layui-nav-child {
+	background:#393D49;
+}
+.layui-nav-tree .layui-this>a{
+	background:  #42485B;
+}
+.layui-nav-tree .layui-nav-child a:hover{
+	background:  #42485B;
+}
+/*body*/
+.layui-layout-admin .layui-body{
+	left:180px;
+	top:52px;
+}
+.layui-nav *{
+	font-size:12px;
+}
+::-webkit-scrollbar{
+	width: 0px;
+	height: 1px;
+}
+/* form */
+.layui-form-radio span {
+	font-size: 12px;
+}
