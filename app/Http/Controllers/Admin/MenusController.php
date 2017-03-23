@@ -24,8 +24,9 @@ class MenusController extends Controller
         return view('admin.menus.show');
     }
 
-    public function test()
+    public function create()
     {
-        return view('admin.menus.show');
+
+        return view('admin.menus.create');
     }
 }

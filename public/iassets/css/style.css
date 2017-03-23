@@ -123,3 +123,7 @@
 .layui-form-radio span {
 	font-size: 12px;
 }
+
+.table-top-button-box{
+	text-align: right;
+}
