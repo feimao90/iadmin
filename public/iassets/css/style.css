@@ -102,7 +102,7 @@
 	background:#393D49;
 }
 .layui-nav-tree .layui-this>a{
-	background:  #42485B;
+	/*background:  #42485B;*/
 }
 .layui-nav-tree .layui-nav-child a:hover{
 	background:  #42485B;

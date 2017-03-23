@@ -23,6 +23,7 @@ abstract class ServiceAbstract
     {
         $this->app = $app;
         $this->makeModel();
+        $this->_init();
     }
 
     public function makeModel()
@@ -34,5 +35,10 @@ abstract class ServiceAbstract
         }
 
         return $this->model = $model;
+    }
+
+    public function _init()
+    {
+
     }
 }

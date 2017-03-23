@@ -14,5 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['namespace' => 'Admin'], function () {
+    Route::get('/', 'HomeController@index')->name('admin.home');
+    Route::get('test', 'HomeController@index')->name('admin.test');
+    Route::resource('sys/menus', 'MenusController');
+    Route::resource('sys/roles', 'RolesController');
+    Route::resource('sys/permissions', 'PermissionsController');
+    Route::resource('sys/admins', 'AdminsController');
+    Route::resource('sys/settings', 'SettingsController');
 
-Route::get('test', 'Admin\HomeController@index');
+    Route::get('sys/menus/test', 'MenusController@test');
+});
