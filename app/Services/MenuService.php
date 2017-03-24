@@ -35,6 +35,52 @@ class MenuService extends ServiceAbstract
         list($this->currentController, $this->currentAction) = explode('@', $route);
 
         $this->currentController = str_replace('\\', '.', $this->currentController);
+//        dump('!!'.$this->currentController.'!!');
+    }
+
+    /**
+     * insert new data
+     * @param array $request
+     * @return bool
+     */
+    public function store(array $data)
+    {
+        $id = $this->model->create($data);
+
+        if (!$id) {
+            return false;
+        }
+
+        //更新缓存
+        $this->setCache();
+        return true;
+    }
+
+    /**
+     * update the data
+     * @param array $data
+     * @param int $id
+     * @return bool
+     */
+    public function update(array $data, int $id)
+    {
+        $result = $this->model->where('id', $id)->update($data);
+        if (!$result) {
+            return false;
+        }
+        //更新缓存
+        $this->setCache();
+        return true;
+    }
+
+    /**
+     * find a data by ID
+     * @param $id
+     * @return mixed
+     */
+    public function findById($id)
+    {
+        return $this->model->findOrFail($id);
     }
 
     /**
@@ -43,13 +89,54 @@ class MenuService extends ServiceAbstract
      */
     public function getMenus()
     {
-        $list = $this->model->get();
+        $list = $this->getList();
 
         self::$dataTree = $this->getTree($list->toArray());
 
         $html = $this->getHtml(self::$dataTree);
 
         return $html;
+    }
+
+    public function delete($id)
+    {
+        $menu = $this->model->findOrFail($id);
+        $result = $menu->delete();
+        if (!$result) {
+            return false;
+        }
+        $this->setCache();
+        return true;
+    }
+
+    /**
+     * 获取菜单,返回带有层级的数组
+     * @return array
+     */
+    public function getMenusTwo()
+    {
+        $list = $this->getList();
+        return $this->getSubTree($list);
+    }
+
+    /**
+     * 从数据库中获取菜单数据列表
+     * @return mixed
+     */
+    public function getList()
+    {
+        return \Cache::remember('menus:list', 86400, function () {
+            return  $this->model->orderBy('sort', 'desc')->orderBy('id', 'asc')->get();
+        });
+    }
+
+    /**
+     * 更新菜单缓存
+     */
+    public function setCache()
+    {
+        \Cache::forget('menus:list');
+        $this->getList();
     }
 
     /**
@@ -77,6 +164,26 @@ class MenuService extends ServiceAbstract
 
         }
         return $tree;
+    }
+
+    /**
+     * 获取不带有child的数组结构
+     * @param $data
+     * @param int $pid
+     * @param int $lev
+     * @return array
+     */
+    public static function getSubTree(&$data , $pid = 0 , $lev = 1) {
+        static $son = array();
+        foreach($data as $key => $value) {
+            if($value['pid'] == $pid) {
+                $value['lev'] = $lev;
+                $son[] = $value;
+                unset($data[$key]);
+                self::getSubTree($data , $value['id'] , $lev+1);
+            }
+        }
+        return $son;
     }
 
     /**

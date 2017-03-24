@@ -109,6 +109,7 @@
     <script type="text/javascript" src="{{ asset('iassets') }}/plugins/layui/layui.js"></script>
     <script src="{{ asset('iassets/js/site.js') }}"></script>
     @yield('script')
+    @include('layouts.message')
 </div>
 </body>
 

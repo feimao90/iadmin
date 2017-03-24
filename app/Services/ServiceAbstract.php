@@ -19,6 +19,11 @@ abstract class ServiceAbstract
 
     abstract function model();
 
+    public function _init()
+    {
+
+    }
+
     public function __construct(App $app)
     {
         $this->app = $app;
@@ -37,8 +42,4 @@ abstract class ServiceAbstract
         return $this->model = $model;
     }
 
-    public function _init()
-    {
-
-    }
 }

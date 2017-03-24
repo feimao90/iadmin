@@ -127,3 +127,23 @@
 .table-top-button-box{
 	text-align: right;
 }
+code {
+	padding: 2px 4px;
+	margin:0 5px;
+	font-size: 90%;
+	color: #c7254e;
+	background-color: #f9f2f4;
+	border-radius: 4px;
+}
+.layui-table td, .layui-table th {
+	font-size:12px;
+}
+.layui-btn-primary:hover{
+	border-color:#717171;
+	color:#000;
+	background: #F2F2F2;
+}
+.form-list-btn {
+	display: inline;
+	margin-left: 10px;
+}
