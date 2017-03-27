@@ -38,6 +38,17 @@ class PermissionsService extends ServiceAbstract
         return true;
     }
 
+    public function update(array $attributes, $id)
+    {
+        $permission = $this->findById($id);
+        $permission->name = $attributes['name'];
+        $permission->display_name = $attributes['display_name'];
+        $permission->pid = $attributes['pid'];
+        $permission->sort = $attributes['sort'];
+        $result = $permission->save();
+        return $result ? true : false;
+    }
+
     public function destroy($id)
     {
         $permission = $this->model->findOrFail($id);

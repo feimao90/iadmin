@@ -45,7 +45,13 @@ class PermissionsController extends Controller
 
     public function update(PermissionsStoreRequest $request, $id)
     {
-        dd($request->all());
+        $message = '修改失败';
+        if ($this->permission->update($request->all(), $id)) {
+            $message = '修改成功';
+        }
+        showMessage($message);
+        return back();
+
     }
 
     public function destroy($id)
