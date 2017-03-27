@@ -9,6 +9,9 @@ class HomeController extends Controller
 {
     public function index()
     {
+
+        $obj = app('url');
+        dd($obj);
 //                dump(\Route::currentRouteName());
 //        dump(\Route::getCurrentRequest()->method()) ;
 //        dump(\Route::getRoutes());

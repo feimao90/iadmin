@@ -19,3 +19,23 @@ function showMessage($message, $redirectTo='', $timeTo=3000) {
         \Session::flash('redirectTo', $redirectTo);
     }
 }
+
+/**
+ * 获取不带有child的数组结构
+ * @param $data
+ * @param int $pid
+ * @param int $lev
+ * @return array
+ */
+function getSubTree(&$data , $pid = 0 , $lev = 1) {
+    static $son = array();
+    foreach($data as $key => $value) {
+        if($value['pid'] == $pid) {
+            $value['lev'] = $lev;
+            $son[] = $value;
+            unset($data[$key]);
+            getSubTree($data , $value['id'] , $lev+1);
+        }
+    }
+    return $son;
+}

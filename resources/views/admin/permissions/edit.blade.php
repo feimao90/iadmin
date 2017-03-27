@@ -2,22 +2,23 @@
 @section('content')
 
     <fieldset class="layui-elem-field layui-field-title">
-        <legend>添加权限</legend>
+        <legend>修改权限</legend>
         <div class="table-top-button-box">
             <a href="{{ route('permissions.index') }}" class="layui-btn layui-btn-small">
                 <i class="layui-icon">&#xe62d;</i> 返回
             </a>
         </div>
         <div class="layui-field-box">
-            <form class="layui-form" action="{{ route('permissions.store') }}" method="POST">
+            <form class="layui-form" action="{{ route('permissions.update', ['id'=>$permission->id]) }}" method="POST">
                 {!! csrf_field() !!}
+                {!! method_field('put') !!}
                 <div class="layui-form-item">
                     <label class="layui-form-label">选择父类</label>
                     <div class="layui-input-inline" style="width:30%">
                         <select name="pid">
                             <option value="0" selected>后台管理</option>
-                            @foreach($permissions as $permission)
-                            <option value="{{ $permission->id }}" @if($permission->lev > 1) disabled @endif>{{ '|' . str_repeat(' - - ', $permission->lev).$permission->display_name }}</option>
+                            @foreach($permissions as $val)
+                            <option value="{{ $val->id }}" @if($val->lev > 1) disabled @endif @if($val->id == $permission->pid) selected @endif>{{ '|' . str_repeat(' - - ', $val->lev).$val->display_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -27,22 +28,22 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">权限名称</label>
                     <div class="layui-input-block" style="width:30%">
-                        <input type="text" name="display_name"   placeholder="请输入权限名称" autocomplete="off" class="layui-input">
+                        <input type="text" name="display_name"   placeholder="请输入权限名称" autocomplete="off" class="layui-input" value="{{ $permission->display_name }}">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">权限标识</label>
                     <div class="layui-input-inline" style="width:30%">
-                        <input type="text" name="name"   placeholder="路由" autocomplete="off" class="layui-input">
+                        <input type="text" name="name"   placeholder="路由" autocomplete="off" class="layui-input" value="{{ $permission->name }}">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">请填写路由别名 例: <code>admin.home</code></div>
+                    <div class="layui-form-mid layui-word-aux">填写路由地址时需要按照路由别名规则 例: <code>admin.home</code></div>
                 </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">排序</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="sort" autocomplete="off" class="layui-input" value="0">
+                        <input type="text" name="sort" autocomplete="off" class="layui-input" value="{{ $permission->sort }}">
                     </div>
                     <div class="layui-form-mid layui-word-aux">数字越大,排序越靠前</div>
                 </div>
