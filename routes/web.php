@@ -17,11 +17,15 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Admin'], function () {
     Route::get('/', 'HomeController@index')->name('admin.home');
     Route::get('test', 'HomeController@index')->name('admin.test');
+
     Route::resource('sys/menus', 'MenusController');
-    Route::resource('sys/roles', 'RolesController');
     Route::resource('sys/permissions', 'PermissionsController');
     Route::resource('sys/admins', 'AdminsController');
     Route::resource('sys/settings', 'SettingsController');
 
-    Route::get('sys/menus/test', 'MenusController@test');
+    Route::resource('sys/roles', 'RolesController', ['only' => ['index', 'store', 'destroy']]);
+    Route::get('sys/roles/{id}/permissions', 'RolesController@permissions')->name('roles.permissions');
+    Route::get('sys/roles/{id}/users', 'RolesController@users')->name('roles.users');
+
+//    Route::get('sys/menus/test', 'MenusController@test');
 });
