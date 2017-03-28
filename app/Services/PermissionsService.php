@@ -23,6 +23,13 @@ class PermissionsService extends ServiceAbstract
         return $data;
     }
 
+    public function tree()
+    {
+        $list = $this->model->get();
+        $data = getTree($list);
+        return $data;
+    }
+
     public function findById($id)
     {
         return $this->model->findOrFail($id);

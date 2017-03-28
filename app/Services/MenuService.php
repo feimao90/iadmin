@@ -40,7 +40,7 @@ class MenuService extends ServiceAbstract
 
     /**
      * insert new data
-     * @param array $request
+     * @param array $data
      * @return bool
      */
     public function store(array $data)
@@ -62,7 +62,7 @@ class MenuService extends ServiceAbstract
      * @param int $id
      * @return bool
      */
-    public function update(array $data, int $id)
+    public function update(array $data, $id)
     {
         $result = $this->model->where('id', $id)->update($data);
         if (!$result) {
@@ -91,8 +91,8 @@ class MenuService extends ServiceAbstract
     {
         $list = $this->getList();
 
-        self::$dataTree = $this->getTree($list->toArray());
-
+        //self::$dataTree = $this->getTree($list->toArray());
+        self::$dataTree = getTree($list->toArray());
         $html = $this->getHtml(self::$dataTree);
 
         return $html;
@@ -116,7 +116,7 @@ class MenuService extends ServiceAbstract
     public function getMenusTwo()
     {
         $list = $this->getList();
-        return $this->getSubTree($list);
+        return getSubTree($list);
     }
 
     /**
@@ -145,46 +145,46 @@ class MenuService extends ServiceAbstract
      * @param int $pid
      * @return array
      */
-    public function getTree($data, $pid=0)
-    {
-        $tree = [];
+//    public function getTree($data, $pid=0)
+//    {
+//        $tree = [];
+//
+//        foreach ($data as $row) {
+//
+//            if ($row['pid'] == $pid) {
+//
+//                $child = $this->getTree($data, $row['id']);
+//
+//                if ($child) {
+//                    $row['child'] = $child;
+//                }
+//
+//                $tree[] = $row;
+//            }
+//
+//        }
+//        return $tree;
+//    }
 
-        foreach ($data as $row) {
-
-            if ($row['pid'] == $pid) {
-
-                $child = $this->getTree($data, $row['id']);
-
-                if ($child) {
-                    $row['child'] = $child;
-                }
-
-                $tree[] = $row;
-            }
-
-        }
-        return $tree;
-    }
-
-    /**
-     * 获取不带有child的数组结构
-     * @param $data
-     * @param int $pid
-     * @param int $lev
-     * @return array
-     */
-    public static function getSubTree(&$data , $pid = 0 , $lev = 1) {
-        static $son = array();
-        foreach($data as $key => $value) {
-            if($value['pid'] == $pid) {
-                $value['lev'] = $lev;
-                $son[] = $value;
-                unset($data[$key]);
-                self::getSubTree($data , $value['id'] , $lev+1);
-            }
-        }
-        return $son;
-    }
+//    /**
+//     * 获取不带有child的数组结构
+//     * @param $data
+//     * @param int $pid
+//     * @param int $lev
+//     * @return array
+//     */
+//    public static function getSubTree(&$data , $pid = 0 , $lev = 1) {
+//        static $son = array();
+//        foreach($data as $key => $value) {
+//            if($value['pid'] == $pid) {
+//                $value['lev'] = $lev;
+//                $son[] = $value;
+//                unset($data[$key]);
+//                self::getSubTree($data , $value['id'] , $lev+1);
+//            }
+//        }
+//        return $son;
+//    }
 
     /**
      * 获取菜单结构HTML

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Services\MenuService;
+use Services\PermissionsService;
 use Services\RolesService;
 
 class RolesController extends Controller
@@ -16,6 +18,12 @@ class RolesController extends Controller
 
     public function index()
     {
+//        //$this->roles->perm(1);
+//        //$this->roles->menu(1);
+//        $this->roles->savePermission(1, [10,11]);
+////        //$this->roles->savePermission(1, '');
+////        $this->roles->detachPermission(1, [10,11,12,13,14,15]);
+//        exit;
         return view('admin.roles.index')->with('roles', $this->roles->all());
     }
 
@@ -29,10 +37,25 @@ class RolesController extends Controller
         return redirect()->back();
     }
 
-    public function permissions()
+    public function permissions(PermissionsService $permission, MenuService $menu, $id)
     {
-        //权限范围包含菜单权限、控制权限
-        return view('admin.roles.permissions');
+        return view('admin.roles.permissions')
+            ->withPermissions($permission->tree())
+            ->withMenus(getTree($menu->getList()))
+            ->withId($id)
+            ->withPerm($this->roles->perm($id))
+            ->withMenu($this->roles->menu($id));
+    }
+
+    public function perm(Request $request, $id)
+    {
+        $data = $request->all();
+        $menu = empty($data['menu']) ? '' : $data['menu'];
+        $permission = empty($data['permission']) ? '' : $data['permission'];
+        $this->roles->savePermission($id, $permission);
+        $this->roles->saveMenu($id, $menu);
+        showMessage('权限设置成功');
+        return back();
     }
 
     public function destroy($id)

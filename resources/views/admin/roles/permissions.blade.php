@@ -1,0 +1,79 @@
+@extends('layouts.admin')
+@section('content')
+
+    {{--<fieldset class="layui-elem-field layui-field-title">--}}
+        {{--<legend>选择权限</legend>--}}
+        <div class="table-top-button-box">
+            <a href="{{ route('roles.index') }}" class="layui-btn layui-btn-small">
+                <i class="layui-icon">&#xe62d;</i> 返回
+            </a>
+        </div>
+        <div class="layui-field-box">
+            <form class="layui-form" action="{{ route('roles.perm.store', ['id'=>$id]) }}" method="POST">
+                {!! csrf_field() !!}
+
+                <div style="float: left; width: 46%; padding: 0 10px;">
+                    <fieldset class="layui-elem-field layui-field-title">
+                        <legend style="margin:0 auto;">选择控制权限</legend>
+                    </fieldset>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            {!! getCheckboxTree($permissions, 'permission', $perm) !!}
+                        </div>
+                    </div>
+                </div>
+                <div style="float: left; height: 300px; margin-top: 50px;; border-left: 1px solid #e2e2e2;"></div>
+                <div style="float: left; width: 46%; padding: 0 10px;">
+                    <fieldset class="layui-elem-field layui-field-title">
+                        <legend style="margin:0 auto;">选择菜单权限</legend>
+                    </fieldset>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            {!! getCheckboxTree($menus, 'menu', $menu) !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="text-align: center;">
+                    <div class="layui-input-block" style="margin-left:0;">
+                        <button class="layui-btn" lay-submit lay-filter="go">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+
+                {{--<div class="layui-form-item" style="width: 40%; position: absolute; left:3%">--}}
+                    {{--<label class="layui-form-label">权限</label>--}}
+                    {{--<div class="layui-input-block">--}}
+                        {{--{!! getCheckboxTree($permissions, 'permission', $perm) !!}--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="layui-form-item" style="width: 40%; position: absolute; right: 10%;">--}}
+                    {{--<fieldset class="layui-elem-field layui-field-title">--}}
+                        {{--<legend style="margin:0 auto;">选择菜单权限</legend>--}}
+                    {{--</fieldset>--}}
+                    {{--<label class="layui-form-label">菜单</label>--}}
+                    {{--<div class="layui-input-block">--}}
+                        {{--{!! getCheckboxTree($menus, 'menu', $menu) !!}--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+
+            </form>
+        </div>
+    {{--</fieldset>--}}
+@endsection
+
+@section('script')
+    <script>
+        layui.use('form', function(){
+            var form = layui.form();
+            //监听提交
+            form.on('submit(go)', function(data){
+                //layer.msg(JSON.stringify(data.field));
+                if (!confirm('确定要添加此内容吗?')) {
+                    return false;
+                }
+            });
+        });
+    </script>
+@endsection

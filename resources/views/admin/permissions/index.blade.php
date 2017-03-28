@@ -27,7 +27,7 @@
                 @foreach($permissions as $permission)
                     <tr>
                         <td>{{ $permission->id }}</td>
-                        <td>{{ '|' . str_repeat(' - - ', $permission->lev).$permission->display_name }}</td>
+                        <td>{{ str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $permission->lev).'|  -  -  '.$permission->display_name }}</td>
                         <td><code>{{ $permission->name }}</code></td>
                         <td>
                             <a href=" {{ route('permissions.edit', ['id'=>$permission->id]) }}" class="layui-btn layui-btn-primary layui-btn-mini">编辑</a>

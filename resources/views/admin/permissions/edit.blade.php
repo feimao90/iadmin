@@ -18,7 +18,7 @@
                         <select name="pid">
                             <option value="0" selected>后台管理</option>
                             @foreach($permissions as $val)
-                            <option value="{{ $val->id }}" @if($val->lev > 1) disabled @endif @if($val->id == $permission->pid) selected @endif>{{ '|' . str_repeat(' - - ', $val->lev).$val->display_name }}</option>
+                            <option value="{{ $val->id }}" @if($val->id == $permission->pid) selected @endif>{{ str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $val->lev).'|  -  -  '.$val->display_name }}</option>
                             @endforeach
                         </select>
                     </div>

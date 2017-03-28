@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Admin'], function () {
 
     Route::resource('sys/roles', 'RolesController', ['only' => ['index', 'store', 'destroy']]);
     Route::get('sys/roles/{id}/permissions', 'RolesController@permissions')->name('roles.permissions');
+    Route::post('sys/roles/{id}/permissions', 'RolesController@perm')->name('roles.perm.store');
     Route::get('sys/roles/{id}/users', 'RolesController@users')->name('roles.users');
 
 //    Route::get('sys/menus/test', 'MenusController@test');

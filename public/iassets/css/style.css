@@ -147,3 +147,6 @@ code {
 	display: inline;
 	margin-left: 10px;
 }
+.layui-form-checkbox span {
+	font-size: 12px;
+}
