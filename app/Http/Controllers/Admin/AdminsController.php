@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\AdminsStoreRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Services\AdminsService;
 use Services\RolesService;
 
 class AdminsController extends Controller
 {
+    protected $admin;
+
+    public function __construct(AdminsService $admin)
+    {
+        $this->admin = $admin;
+    }
+
     public function index()
     {
         return view('admin.admins.index');
@@ -21,7 +28,12 @@ class AdminsController extends Controller
 
     public function store(AdminsStoreRequest $request)
     {
+
         $data = $request->all();
-        dd($data);
+        $status = 0;
+        if ($this->admin->store($data)) {
+            $status = 1;
+        }
+        return response()->json(['status'=>$status]);
     }
 }

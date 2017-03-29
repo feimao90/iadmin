@@ -9,13 +9,13 @@
             </a>
         </div>
         <div class="layui-field-box">
-            <form class="layui-form" action="{{ route('admins.store') }}" method="POST">
+            <form class="layui-form" action="{{ route('admins.store') }}" method="POST" id="admin-form">
                 {!! csrf_field() !!}
                 <div class="layui-form-item">
                     <label class="layui-form-label">选择角色</label>
                     <div class="layui-input-inline" style="width:30%">
                         <select name="role">
-                            <option value="0" selected>请选择角色</option>
+                            <option selected>请选择角色</option>
                             @foreach($roles as $role)
                                 <option value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach
@@ -33,7 +33,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">登录邮箱</label>
                     <div class="layui-input-inline" style="width:30%">
-                        <input type="text" name="name"   placeholder="请输入管理员登录邮箱" autocomplete="off" class="layui-input">
+                        <input type="text" name="email"   placeholder="请输入管理员登录邮箱" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">确认密码</label>
                     <div class="layui-input-inline" style="width:30%">
-                        <input type="password" name="confirm_password"   placeholder="确认密码" autocomplete="off" class="layui-input">
+                        <input type="password" name="password_confirmation"   placeholder="确认密码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
@@ -72,15 +72,29 @@
 
 @section('script')
     <script>
-        layui.use('form', function(){
-            var form = layui.form();
+        layui.use(['form', 'jquery', 'ajax'], function(){
+
+            var form = layui.form(), $ = layui.jquery, ajax = layui.ajax()
+
             //监听提交
             form.on('submit(go)', function(data){
-                //layer.msg(JSON.stringify(data.field));
-                if (!confirm('确定要添加此内容吗?')) {
-                    return false;
-                }
-            });
-        });
+                ajax.set({
+                    'form' : $('#admin-form')
+                });
+                ajax.exec(function (data) {
+                    message = '添加失败';
+                    if (data.status == 1) {
+                        message = '添加成功';
+                    }
+                    layer.msg(message, {
+                        icon:1,
+                        title:false,
+                        closeBtn: false,
+                        shade: 0.3
+                    });
+                });
+                return false;
+            })
+        })
     </script>
 @endsection

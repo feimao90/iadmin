@@ -6,5 +6,4 @@ layui.config({base: '/iassets/js/'}).use(['element', 'layer', 'tab'], function()
         tab = layui.tab({
             elem: '.admin-nav-card' //设置选项卡容器
         });
-
 })
