@@ -9,6 +9,8 @@
 namespace Services;
 
 
+use Illuminate\Support\Facades\DB;
+
 class AdminsService extends ServiceAbstract
 {
     public function model()
@@ -16,9 +18,15 @@ class AdminsService extends ServiceAbstract
         return \App\Models\SysAdmins::class;
     }
 
-    public function all()
+    public function paginate($pages)
     {
+        $pages = $pages ? $pages : 30;
+        return $this->model->orderBy('id', 'desc')->paginate($pages);
+    }
 
+    public function findById($id)
+    {
+        return $this->model->findOrFail($id);
     }
 
     /**
@@ -28,15 +36,52 @@ class AdminsService extends ServiceAbstract
      */
     public function store(array $attributes)
     {
-        $password = bcrypt($attributes['password']);
-        $result = $this->model->create([
-            'email'     => $attributes['email'],
-            'nickname'  => $attributes['nickname'],
-            'password'  => $password,
-            'active'    => $attributes['active']
-        ]);
+        DB::beginTransaction();
+        try {
+            $password = bcrypt($attributes['password']);
+            $admin = $this->model->create([
+                'email'     => $attributes['email'],
+                'nickname'  => $attributes['nickname'],
+                'password'  => $password,
+                'active'    => $attributes['active']
+            ]);
 
-        return $result ? true : false;
+            $admin->roles()->sync([$attributes['role']]);
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
+
+    public function update(array $attributes, $id)
+    {
+        try {
+            $admin = $this->findById($id);
+            $up = false;
+            foreach ($attributes as $column=>$attribute) {
+                if ($admin->$column == $attribute) {
+                    unset($attributes[$column]);
+                    continue;
+                }
+                $up = true;
+                $admin->$column = $attribute;
+            }
+            $admin->save();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    public function delete($id)
+    {
+        $admin = $this->findById($id);
+        $admin->delete();
+        return true;
+    }
+
+
 
 }

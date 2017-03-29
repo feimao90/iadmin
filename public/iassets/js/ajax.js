@@ -13,6 +13,8 @@ layui.define(['jquery', 'layer'], function (exports) {
             loadingMessage  : undefined,  //加载层的文字提示
             method          : undefined,  //提交方法
             dataType        : undefined,  //返回数据类型
+            url             : undefined,  //提交地址
+            data            : undefined   //提交数据
         };
     }
 
@@ -24,8 +26,10 @@ layui.define(['jquery', 'layer'], function (exports) {
 
     Ajax.prototype.exec = function (callback) {
         var config = this.config;
-        if (typeof config.form != 'object') {
+
+        if (typeof config.form == 'undefined' && (typeof config.data == 'undefined' || typeof config.url == 'undefined') ) {
             throw new Error('Ajax Form error: The form must be an object');
+            return
         }
 
         layer.confirm(
@@ -48,9 +52,10 @@ layui.define(['jquery', 'layer'], function (exports) {
                 }
 
                 $.ajax({
+                    headers : {'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
                     type    : (typeof config.method == 'undefined') ? 'POST' : config.method ,
-                    url     : config.form.attr('action'),
-                    data    : config.form.serialize(),
+                    url     : (typeof config.url != 'undefined') ? config.url : config.form.attr('action'),
+                    data    : (typeof config.data != 'undefined') ? config.data : config.form.serialize(),
                     dataType: (typeof config.dataType == 'undefined') ? 'JSON' : config.dataType,
                     success : function (data) {
                         if (typeof callback == 'function') {

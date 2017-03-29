@@ -90,7 +90,10 @@
                         icon:1,
                         title:false,
                         closeBtn: false,
-                        shade: 0.3
+                        shade: 0.3,
+                        end: function () {
+                            location.href = '{{ route("admins.index") }}'
+                        }
                     });
                 });
                 return false;

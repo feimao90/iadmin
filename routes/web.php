@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::resource('sys/menus', 'MenusController');
     Route::resource('sys/permissions', 'PermissionsController');
     Route::resource('sys/admins', 'AdminsController');
+    Route::put('sys/admins/{id}/active', 'AdminsController@active')->name('admins.active');
     Route::resource('sys/settings', 'SettingsController');
 
     Route::resource('sys/roles', 'RolesController', ['only' => ['index', 'store', 'destroy']]);

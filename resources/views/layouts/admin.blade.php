@@ -11,6 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" href="{{ asset('iassets/plugins/layui/css/layui.css') }}" media="all" />
     <link rel="stylesheet" href="{{ asset('iassets/css/global.css') }}" media="all">
