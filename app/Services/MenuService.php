@@ -9,6 +9,8 @@
 namespace Services;
 
 
+use Illuminate\Support\Facades\Cache;
+
 class MenuService extends ServiceAbstract
 {
     public static $dataTree;
@@ -196,6 +198,9 @@ class MenuService extends ServiceAbstract
     {
         $html = '';
         foreach ($trees as $tree) {
+            if (!\Auth::guard('admin')->user()->canMenus($tree['name'])) {
+                continue;
+            }
             if (empty($tree['child'])) {
                 $url = ($tree['uri'] !== '#') ? route($tree['uri']) : '#';
                 $active = ($this->currentController == $this->controllerNameSpace. $tree['name']) ? 'layui-this' : '';

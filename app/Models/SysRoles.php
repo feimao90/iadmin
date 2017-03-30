@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class SysRoles extends Model
 {
@@ -17,4 +18,24 @@ class SysRoles extends Model
     {
         return $this->belongsToMany('App\Models\SysMenus', 'sys_roles_menus', 'roles_id', 'menus_id');
     }
+
+    public function cachedPermissions()
+    {
+        $rolePrimaryKey = $this->primaryKey;
+        $cacheKey = 'permissions_for_role_'.$this->$rolePrimaryKey;
+        return Cache::tags('sys_permissions')->remember($cacheKey, 86400, function () {
+            return $this->perm()->get();
+        });
+    }
+
+    public function cachedMenus()
+    {
+        $rolePrimaryKey = $this->primaryKey;
+        $cacheKey = 'menus_for_role_'.$this->$rolePrimaryKey;
+        return Cache::tags('sys_menus')->remember($cacheKey, 86400, function () {
+            return $this->menu()->get();
+        });
+    }
+
+
 }

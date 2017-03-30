@@ -18,6 +18,11 @@ class AdminsService extends ServiceAbstract
         return \App\Models\SysAdmins::class;
     }
 
+    /**
+     * 分页展示数据
+     * @param $pages
+     * @return mixed
+     */
     public function paginate($pages)
     {
         $pages = $pages ? $pages : 30;
@@ -55,6 +60,12 @@ class AdminsService extends ServiceAbstract
         }
     }
 
+    /**
+     * 更新管理员信息
+     * @param array $attributes
+     * @param $id
+     * @return bool
+     */
     public function update(array $attributes, $id)
     {
         try {
@@ -75,13 +86,16 @@ class AdminsService extends ServiceAbstract
         }
     }
 
+    /**
+     * 删除管理员
+     * @param $id
+     * @return bool
+     */
     public function delete($id)
     {
         $admin = $this->findById($id);
         $admin->delete();
         return true;
     }
-
-
 
 }
