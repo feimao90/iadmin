@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\AdminsStoreRequest;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Services\AdminsService;
 use Services\RolesService;
@@ -14,6 +13,7 @@ class AdminsController extends Controller
 
     public function __construct(AdminsService $admin)
     {
+        parent::__construct();
         $this->admin = $admin;
     }
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PermissionsStoreRequest;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Services\PermissionsService;
 
 class PermissionsController extends Controller

@@ -11,13 +11,11 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-Route::group(['namespace' => 'Admin'], function () {
-    Route::get('/', 'HomeController@index')->name('admin.home');
-    Route::get('test', 'HomeController@index')->name('admin.test');
+Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
+Route::post('login', 'Admin\LoginController@login')->name('admin.login.post');
 
+Route::group(['namespace' => 'Admin', 'middleware'=>'auth.admin:admin'], function () {
+    Route::get('/', 'HomeController@index')->name('admin.home');
     Route::resource('sys/menus', 'MenusController');
     Route::resource('sys/permissions', 'PermissionsController');
     Route::resource('sys/admins', 'AdminsController');
@@ -29,5 +27,8 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::post('sys/roles/{id}/permissions', 'RolesController@perm')->name('roles.perm.store');
     Route::get('sys/roles/{id}/users', 'RolesController@users')->name('roles.users');
 
-//    Route::get('sys/menus/test', 'MenusController@test');
 });
+
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index');

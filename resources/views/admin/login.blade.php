@@ -17,7 +17,7 @@
         <h1>后台登录</h1>
     </header>
     <div class="beg-login-main">
-        <form action="/login" class="layui-form" method="post">
+        <form action="{{ route('admin.login.post') }}" class="layui-form" method="post">
             {!! csrf_field() !!}
             @if (count($errors) > 0)
                 <ul>
@@ -41,7 +41,7 @@
             <div class="layui-form-item">
                 <div class="beg-pull-left beg-login-remember">
                     <label>记住帐号？</label>
-                    <input type="checkbox" name="remember" value="true" lay-skin="switch" checked title="记住帐号">
+                    <input type="checkbox" name="remember" value="1" lay-skin="switch" checked title="记住帐号">
                 </div>
                 <div class="beg-pull-right">
                     <button class="layui-btn layui-btn-primary" lay-submit lay-filter="login">

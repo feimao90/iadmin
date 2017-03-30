@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Services\MenuService;
 use Services\PermissionsService;
 use Services\RolesService;
@@ -18,12 +17,6 @@ class RolesController extends Controller
 
     public function index()
     {
-//        //$this->roles->perm(1);
-//        //$this->roles->menu(1);
-//        $this->roles->savePermission(1, [10,11]);
-////        //$this->roles->savePermission(1, '');
-////        $this->roles->detachPermission(1, [10,11,12,13,14,15]);
-//        exit;
         return view('admin.roles.index')->with('roles', $this->roles->all());
     }
 
