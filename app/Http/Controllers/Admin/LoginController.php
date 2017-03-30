@@ -39,4 +39,16 @@ class LoginController extends Controller
         );
     }
 
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->forget($this->guard()->getName());
+
+        $request->session()->regenerate();
+
+        //return redirect('/');
+        return response()->json(['status'=>1]);
+    }
+
 }

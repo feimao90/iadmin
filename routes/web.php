@@ -16,6 +16,7 @@ Route::post('login', 'Admin\LoginController@login')->name('admin.login.post');
 
 Route::group(['namespace' => 'Admin', 'middleware'=>'auth.admin:admin'], function () {
     Route::get('/', 'HomeController@index')->name('admin.home');
+    Route::post('logout', 'LoginController@logout')->name('admin.logout');
     Route::resource('sys/menus', 'MenusController');
     Route::resource('sys/permissions', 'PermissionsController');
     Route::resource('sys/admins', 'AdminsController');
