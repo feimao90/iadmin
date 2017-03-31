@@ -49,6 +49,7 @@ class RolesService extends ServiceAbstract
     public function store(array $attributes)
     {
         $this->model->name = $attributes['name'];
+        $this->model->display_name = $attributes['display_name'];
         $result = $this->model->save();
         return $result;
     }
@@ -61,6 +62,9 @@ class RolesService extends ServiceAbstract
     public function destroy($id)
     {
         $role = $this->findById($id);
+        //首先移除所有的关系
+        $this->saveMenu($id, '');
+        $this->savePermission($id, '');
         return $role->delete();
     }
 
@@ -97,6 +101,7 @@ class RolesService extends ServiceAbstract
         } else {
             $role->perm()->detach();
         }
+        $role->cleanCache();
     }
 
     /**
@@ -111,6 +116,7 @@ class RolesService extends ServiceAbstract
             $permission = $permission->getKey();
         }
         $role->perm()->attach($permission);
+        $role->cleanCache();
     }
 
     /**
@@ -125,6 +131,7 @@ class RolesService extends ServiceAbstract
             $permission = $permission->getKey();
         }
         $role->perm()->detach($permission);
+        $role->cleanCache();
     }
 
     /**
@@ -145,6 +152,7 @@ class RolesService extends ServiceAbstract
         } else {
             $role->menu()->detach();
         }
+        $role->cleanCache();
     }
 
     /**
@@ -159,6 +167,7 @@ class RolesService extends ServiceAbstract
             $menu = $menu->getKey();
         }
         $role->menu()->attche($menu);
+        $role->cleanCache();
     }
 
     /**
@@ -173,6 +182,7 @@ class RolesService extends ServiceAbstract
             $menu = $menu->getKey();
         }
         $role->menu()->detach($menu);
+        $role->cleanCache();
     }
 
 }

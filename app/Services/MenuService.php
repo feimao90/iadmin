@@ -103,6 +103,7 @@ class MenuService extends ServiceAbstract
     public function delete($id)
     {
         $menu = $this->model->findOrFail($id);
+        $menu->roles()->detach();
         $result = $menu->delete();
         if (!$result) {
             return false;

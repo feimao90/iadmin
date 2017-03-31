@@ -93,7 +93,11 @@ class AdminsService extends ServiceAbstract
      */
     public function delete($id)
     {
+        //获取当前管理员对象
         $admin = $this->findById($id);
+        //移除管理员与角色的关系
+        $admin->roles()->detach();
+        //删除管理员
         $admin->delete();
         return true;
     }

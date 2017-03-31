@@ -37,5 +37,11 @@ class SysRoles extends Model
         });
     }
 
+    public function cleanCache()
+    {
+        Cache::tags('sys_permissions')->flush();
+        Cache::tags('sys_menus')->flush();
+    }
+
 
 }

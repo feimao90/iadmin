@@ -59,6 +59,8 @@ class PermissionsService extends ServiceAbstract
     public function destroy($id)
     {
         $permission = $this->model->findOrFail($id);
+        //移除权限的关联关系
+        $permission->roles()->detach();
         $permission->delete();
         return true;
     }
