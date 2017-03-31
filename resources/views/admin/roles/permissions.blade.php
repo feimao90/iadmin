@@ -14,20 +14,20 @@
                     <legend style="margin:0 auto;">选择控制权限</legend>
                 </fieldset>
 
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
+                <div class="layui-form-item" id="permissions-box">
+                    <div class="layui-input-block" style="margin-left: 50px;">
                         {!! getCheckboxTree($permissions, 'permission', $perm) !!}
                     </div>
                 </div>
             </div>
-            <div style="float: left; height: 300px; margin-top: 50px;; border-left: 1px solid #e2e2e2;"></div>
+            <div id="middlebox" style="float: left; height: 300px; margin-top: 50px;; border-left: 1px solid #e2e2e2;"></div>
             <div style="float: left; width: 46%; padding: 0 10px;">
                 <fieldset class="layui-elem-field layui-field-title">
                     <legend style="margin:0 auto;">选择菜单权限</legend>
                 </fieldset>
 
                 <div class="layui-form-item">
-                    <div class="layui-input-block">
+                    <div class="layui-input-block" style="margin-left: 50px;">
                         {!! getCheckboxTree($menus, 'menu', $menu) !!}
                     </div>
                 </div>
@@ -44,8 +44,14 @@
 
 @section('script')
     <script>
-        layui.use('form', function(){
-            var form = layui.form();
+        layui.use(['form', 'jquery'], function(){
+            var form = layui.form(), $ = layui.jquery
+            $(function($){
+                var pbh = $('#permissions-box').height()
+                $('#middlebox').height(pbh/1.5).css({'margin-top':30+(pbh-pbh/1.5)/2});
+
+
+            })
             //监听提交
             form.on('submit(go)', function(data){
                 //layer.msg(JSON.stringify(data.field));

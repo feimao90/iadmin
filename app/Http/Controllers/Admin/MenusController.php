@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MenusStoreRequest;
+use Illuminate\Http\Request;
 use Services\MenuService;
 
 class MenusController extends Controller
@@ -63,7 +64,7 @@ class MenusController extends Controller
             ->with('menus', $this->menu->getMenusTwo());
     }
 
-    public function update(MenusStoreRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->only('name', 'display_name', 'uri', 'sort', 'pid');
         if ($this->menu->update($data, $id)) {

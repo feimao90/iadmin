@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>404 Not Found</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>错误信息</title>
     <style>
         body {
             color: #666;
@@ -43,12 +41,12 @@
         }
     </style>
 </head>
+
 <body>
-<h1>404</h1>
-<h3>ERROR: {{$exception->getMessage() ? $exception->getMessage() : '访问资源不存在'}}</h3>
+<h1>403</h1>
+<h3>ERROR: {{$exception->getMessage()}}</h3>
 <hr>
-<p>访问资源不存在或者您没有权限访问， <a href="javascript:history.back();">点击这里</a> 返回上一级.</p>
+<p>详细错误请看上方说明， <a href="javascript:history.back();">点击这里</a> 返回上一级.</p>
 
-</body>
-</html>
 
+<div id="tqShowIP" class="tqShowIP_right">116.211.167.14</div></body></html>

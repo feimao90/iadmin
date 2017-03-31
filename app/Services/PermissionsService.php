@@ -37,7 +37,7 @@ class PermissionsService extends ServiceAbstract
 
     public function store(array $attributes)
     {
-        $data['name']           = $attributes['name'];
+        $data['name']           = str_is($attributes['name'], '#') ? '#-'.time() : $attributes['name'];
         $data['display_name']   = $attributes['display_name'];
         $data['pid']            = $attributes['pid'];
         $data['sort']           = $attributes['sort'];

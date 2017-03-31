@@ -66,13 +66,30 @@ class MenuService extends ServiceAbstract
      */
     public function update(array $data, $id)
     {
-        $result = $this->model->where('id', $id)->update($data);
-        if (!$result) {
+        $menu = $this->findById($id);
+        $update = false;
+        foreach ($data as $key=>$val) {
+            if (!isset($menu->$key) || $menu->$key == $val) {
+                unset($data[$key]);
+                continue;
+            }
+            if ($key == 'name') {
+                //检测标识是否重复
+                if ($this->model->where('name', $val)->first()) {
+                    abort(403, '菜单标识不能重复');
+                }
+            }
+            $update = true;
+            $menu->$key = $val;
+        }
+        if ($update) {
+            $menu->save();
+            //更新缓存
+            $this->setCache();
+            return true;
+        } else {
             return false;
         }
-        //更新缓存
-        $this->setCache();
-        return true;
     }
 
     /**
