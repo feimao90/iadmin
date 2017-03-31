@@ -17,7 +17,7 @@
                         <select name="role">
                             <option selected>请选择角色</option>
                             @foreach($roles as $role)
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                <option value="{{ $role->id }}">{{ $role->display_name }}</option>
                             @endforeach
                         </select>
                     </div>
