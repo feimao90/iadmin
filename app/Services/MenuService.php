@@ -215,10 +215,14 @@ class MenuService extends ServiceAbstract
     public function getHtml($trees, $child=false)
     {
         $html = '';
+        $superAdmin = \Auth::guard('admin')->user()->hasRole('super_admin');
         foreach ($trees as $tree) {
-            if (!\Auth::guard('admin')->user()->canMenus($tree['name'])) {
-                continue;
+            if (!$superAdmin) {
+                if (!\Auth::guard('admin')->user()->canMenus($tree['name'])) {
+                    continue;
+                }
             }
+
             if (empty($tree['child'])) {
                 $url = ($tree['uri'] !== '#') ? route($tree['uri']) : '#';
                 $active = ($this->currentController == $this->controllerNameSpace. $tree['name']) ? 'layui-this' : '';

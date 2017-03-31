@@ -21,7 +21,7 @@ class CreateBaseTable extends Migration
                 $table->string('password', 255)->comment('密码');
                 $table->tinyInteger('active')->default(1)->comment('状态（0，1）');
                 $table->timestamps();
-                $table->string('remember_token', 255);
+                $table->string('remember_token', 255)->default('');
             });
         }
 
