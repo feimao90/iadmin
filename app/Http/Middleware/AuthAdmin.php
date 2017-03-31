@@ -32,7 +32,7 @@ class AuthAdmin
          * 超级管理员组成员具有所有权限, 不是超级管理员组的成员需要判断是否具备当前的执行权限
          */
         if (!$user->hasRole('super_admin') && !$user->canPermission(\Route::currentRouteName())) {
-            dd('没有权限');
+            abort(403, '您没有权限访问当前资源');
         }
 
         return $next($request);
