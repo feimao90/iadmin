@@ -47,15 +47,19 @@ class MenuService extends ServiceAbstract
      */
     public function store(array $data)
     {
-        $id = $this->model->create($data);
+        try {
+            if (!\Route::getRoutes()->hasNamedRoute($data['uri'])) {
+                throw new \Exception('您填写的菜单链接不存在!');
+            }
+            $id = $this->model->create($data);
+            //更新缓存
+            $this->setCache();
+            return true;
 
-        if (!$id) {
-            return false;
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
 
-        //更新缓存
-        $this->setCache();
-        return true;
     }
 
     /**

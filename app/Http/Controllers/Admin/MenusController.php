@@ -48,10 +48,11 @@ class MenusController extends Controller
     public function store(MenusStoreRequest $request)
     {
         $data = $request->only('name', 'display_name', 'uri', 'sort', 'pid');
-        if ($this->menu->store($data)) {
+        $result = $this->menu->store($data);
+        if ($result === true) {
             showMessage('添加成功', route('menus.index'));
         } else {
-            showMessage('添加失败');
+            showMessage($result);
         }
         return redirect()->back();
     }
