@@ -18,7 +18,7 @@ Laravel 使用 [Composer](https://getcomposer.org/) 来管理代码依赖。所�
 
 ###### 下载地址 [ Downloads ]
 
-    git clone https://git.oschina.net/zhangkongkeji/iadmin.git
+    git clone https://git.oschina.net/yazikeji/iadmin.git
 
     composer install
 
