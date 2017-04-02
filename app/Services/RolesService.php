@@ -18,6 +18,12 @@ class RolesService extends ServiceAbstract
         return \App\Models\SysRoles::class;
     }
 
+    public function getUsersForRoles($rolesId)
+    {
+        $role = $this->findById($rolesId);
+        return $role->users()->orderBy('id', 'desc')->paginate();
+    }
+
     /**
      * 获取所有角色
      * @param array $column

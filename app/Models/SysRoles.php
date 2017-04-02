@@ -19,6 +19,11 @@ class SysRoles extends Model
         return $this->belongsToMany('App\Models\SysMenus', 'sys_roles_menus', 'roles_id', 'menus_id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\SysAdmins', 'sys_roles_admins', 'roles_id', 'admins_id');
+    }
+
     public function cachedPermissions()
     {
         $rolePrimaryKey = $this->primaryKey;

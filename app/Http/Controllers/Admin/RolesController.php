@@ -57,4 +57,12 @@ class RolesController extends Controller
         showMessage('删除成功');
         return redirect()->back();
     }
+
+    public function users($roleId)
+    {
+        //获取用户组下的用户数据
+        $role = $this->roles->findById($roleId);
+        $list = $this->roles->getUsersForRoles($roleId);
+        return view('admin.roles.admins')->withAdmins($list)->withRole($role);
+    }
 }
