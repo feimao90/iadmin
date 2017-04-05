@@ -11,17 +11,6 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-//        // 获取浏览器版本
-//        $browser = Agent::browser();
-//        $version1 = Agent::version($browser);
-//
-//
-//        // 获取系统版本
-//        $platform = Agent::platform();
-//        $version2 = Agent::version($platform);
-//        $request->setTrustedProxies(array('10.32.0.1/16'));
-//        dd($request->getClientIp(), $browser.'-'.$version1, $platform.'-'.$version2, Agent::getUserAgent());
-
         return view('admin.home.home');
     }
 
