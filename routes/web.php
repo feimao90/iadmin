@@ -13,12 +13,12 @@
 
 Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
 Route::post('login', 'Admin\LoginController@login')->name('admin.login.post');
+Route::post('logout', 'Admin\LoginController@logout')->name('admin.logout');
 
 Route::group(['namespace' => 'Admin', 'middleware'=>'auth.admin:admin'], function () {
     //后台首页
     Route::get('/', 'HomeController@index')->name('admin.home');
-    //登出
-    Route::post('logout', 'LoginController@logout')->name('admin.logout');
+
     //菜单管理
     Route::resource('sys/menus', 'MenusController');
     //权限管理
