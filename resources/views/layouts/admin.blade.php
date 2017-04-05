@@ -34,6 +34,9 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
+                            <a href="{{ route('admin.login.history', ['id'=>auth()->guard('admin')->user()->id]) }}"><i class="fa fa-history" aria-hidden="true"></i> 登录历史</a>
+                        </dd>
+                        <dd>
                             <a href="javascript:;" data-route="{{ route('admin.logout') }}" id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
                         </dd>
                     </dl>
