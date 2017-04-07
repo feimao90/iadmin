@@ -10,6 +10,7 @@ namespace Services;
 
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminsService extends ServiceAbstract
 {
@@ -84,6 +85,32 @@ class AdminsService extends ServiceAbstract
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    public function updatePassword($attributes, $id)
+    {
+        try {
+            //验证原密码是否正确
+            $admin = $this->findById($id);
+
+            if (!Hash::check($attributes['oldPassword'], $admin->password)) {
+                throw new \Exception('旧密码输入错误');
+            }
+
+            if ($attributes['password'] !== $attributes['password_confirmation']) {
+                throw new \Exception('重复密码输入不正确');
+            }
+
+            if (Hash::check($attributes['password'], $admin->password)) {
+                throw new \Exception('数据错误, 密码没有修改');
+            }
+            $admin->password = Hash::make($attributes['password']);
+            $admin->save();
+            return true;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
     }
 
     /**

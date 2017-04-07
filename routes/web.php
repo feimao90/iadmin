@@ -35,7 +35,9 @@ Route::group(['namespace' => 'Admin', 'middleware'=>'auth.admin:admin'], functio
     Route::get('sys/roles/{id}/users', 'RolesController@users')->name('roles.users');
 
     //我的
-    Route::get('admin/{id}/history', 'HomeController@loginHistory')->name('admin.login.history');
+    Route::get('profile/history', 'ProfileController@loginHistory')->name('admin.login.history');
+    Route::get('profile/account', 'ProfileController@account')->name('admin.edit.account');
+    Route::put('profile/update_password', 'ProfileController@updatePassword')->name('admin.update.password');
 
 });
 

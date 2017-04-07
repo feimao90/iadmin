@@ -34,7 +34,10 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="{{ route('admin.login.history', ['id'=>auth()->guard('admin')->user()->id]) }}"><i class="fa fa-history" aria-hidden="true"></i> 登录历史</a>
+                            <a href="{{ route('admin.edit.account') }}"><i class="fa fa-keyboard-o" aria-hidden="true"></i> 修改密码</a>
+                        </dd>
+                        <dd>
+                            <a href="{{ route('admin.login.history') }}"><i class="fa fa-history" aria-hidden="true"></i> 登录历史</a>
                         </dd>
                         <dd>
                             <a href="javascript:;" data-route="{{ route('admin.logout') }}" id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
